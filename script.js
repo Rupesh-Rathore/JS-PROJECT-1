@@ -65,7 +65,18 @@ function render(){
         gameOverModal.style.display = 'flex';
 
         return;
-    }
+    }else{
+            snake.forEach(segement =>{
+                if(head.x == segement.x && head.y == segement.y){
+                    clearInterval(intervalId);
+                    modal.style.display = 'flex';
+                    startGameModal.style.display = 'none';
+                    gameOverModal.style.display = 'flex';
+
+                    return;
+                }
+            })
+        }
 
     if(head.x == food.x && head.y == food.y){
         blocks[`${food.x}-${food.y}`].classList.remove("food");
@@ -143,12 +154,20 @@ function restartGame(){
 
 addEventListener("keydown",(event)=>{
     if(event.key == "ArrowUp"){
-        direction = "up";
+        if(direction != "down"){
+            direction = "up";
+        }
     }else if(event.key == "ArrowDown"){
-        direction = "down";
+        if(direction != "up"){
+            direction = "down";
+        }
     }else if(event.key == "ArrowLeft"){
-        direction = "left";
+        if(direction != "right"){
+            direction = "left";
+        }
     }else if(event.key == "ArrowRight"){
-        direction = "right";
+        if(direction != "left"){
+            direction = "right";
+        }
     }
 })
